@@ -1,6 +1,3 @@
-// FIXME: Feel free to remove this :-)
-console.log('\n\nGood Luck! 😅\n\n');
-
 const server = require('socket.io')();
 const firstTodos = require('./data');
 const Todo = require('./todo');
@@ -36,6 +33,20 @@ server.on('connection', (client) => {
         // Send the latest todos to the client
         // FIXME: This sends all todos every time, could this be more efficient?
         reloadTodos();
+    });
+
+    // Accepts when a client updates a todo (at the moment just todo completion)
+    client.on('update', (id) => {
+
+      // This feels a little inefficient, but essentially we want to find the
+      // correct object inside the array and change the 'completed' param to true
+      DB.forEach(todo => {
+        if(todo.id === id){
+          todo.completed = true
+        }
+      })
+
+      reloadTodos();
     });
 
     // Send the DB downstream on connect

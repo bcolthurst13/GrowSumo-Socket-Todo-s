@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoItem from './TodoItem';
 
 export default class App extends React.Component {
   constructor(props){
@@ -51,6 +52,12 @@ export default class App extends React.Component {
     });
     // TODO: refocus the element
   }
+
+  completeTodo = (id) => {
+    const { server } = this.props;
+
+    server.emit('update', id);
+  }
   render = () => {
     const { input, todos } = this.state;
 
@@ -59,7 +66,7 @@ export default class App extends React.Component {
       <button type="button" onClick={this.addItem}>Make</button>
       {
         todos.map(todo => {
-          return <li>{todo.title}</li>
+          return <TodoItem todo={todo} completeTodo={this.completeTodo} />
         })
       }
     </div>;
