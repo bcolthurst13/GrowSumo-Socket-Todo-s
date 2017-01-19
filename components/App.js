@@ -110,10 +110,17 @@ export default class App extends React.Component {
           })
         }
       </div>
-      <div className="button-container">
-        <div className="big-button" onClick={this.completeAll}><p>We've actually done all of these!</p></div>
-        <div className="big-button" onClick={this.deleteAll}><p>$*!# this, delete 'em all</p></div>
-      </div>
+      {
+        todos.length === 0 &&
+        <h1 className="empty-list">You've got nothing to do! :D</h1>
+      }
+      {
+        todos.length > 0 &&
+        <div className="button-container">
+          <div className="big-button" onClick={this.completeAll}><p>We've actually done all of these!</p></div>
+          <div className="big-button" onClick={this.deleteAll}><p>$*!# this, delete 'em all</p></div>
+        </div>
+      }
     </div>;
   }
 }

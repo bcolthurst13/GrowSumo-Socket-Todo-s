@@ -144,6 +144,13 @@ p {
   color: #5cab93;
 }
 
+.empty-list {
+  color: #fff;
+  font-size: 50px;
+  text-align: center;
+  margin: 80px;
+}
+
 /* Adjusting placeholder color is weird */
 ::-webkit-input-placeholder {
     color:    rgba(255,255,255,0.3);
