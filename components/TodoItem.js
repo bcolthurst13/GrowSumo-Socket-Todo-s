@@ -14,14 +14,13 @@ export default class TodoItem extends React.Component {
   render = () => {
     const { todo } = this.props;
 
-    return <div>
-      <p>{todo.title}</p>
-      <span>{todo.timestamp}</span>
-      <button onClick={this.handleCompleteTodo}>Complete</button>
-      <button onClick={this.handleDeleteTodo}>Delete</button>
+    return <div className="todo-line-item">
+      <p className="todo-line-item-title">{todo.title}</p>
+      <span onClick={this.handleCompleteTodo} className="complete-todo fa fa-check fa-2x" style={todo.completed ? { color: 'green' } : {}}/>
+      <span onClick={this.handleDeleteTodo} className="delete-todo fa fa-trash fa-2x" />
       {
         todo.completed &&
-        <div>Completed!!</div>
+        <div className="strike-through" />
       }
     </div>;
   }

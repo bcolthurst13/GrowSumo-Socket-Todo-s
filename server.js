@@ -5,12 +5,14 @@ const Todo = require('./todo');
 // A flag to make sure we don't reload data when the client is refreshed so long
 // as the server is running.
 let isTheServerRunning = false;
+// Our fake 'database' connection / data
 let DB = [];
+// A quick backup cache
+let cache = [];
 
 server.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
     // Parse all default Todo's from db
-    console.log("Someone connected!!");
 
     // We only want our initial data if the server has just been restarted
     if(!isTheServerRunning){
@@ -25,7 +27,12 @@ server.on('connection', (client) => {
 
     // Sends a message to the client to reload all todos
     const reloadTodos = () => {
+      if(DB === undefined){
+        server.emit('load', cache);
+      } else {
         server.emit('load', DB);
+        cache = DB;
+      }
     }
 
     // Accepts when a client makes a new todo

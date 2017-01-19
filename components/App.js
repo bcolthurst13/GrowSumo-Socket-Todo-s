@@ -50,7 +50,12 @@ export default class App extends React.Component {
     this.setState({
       input: '',
     });
-    // TODO: refocus the element
+  }
+
+  handleKeyPress = (event) => {
+    if(event.keyCode === 13){
+      this.addItem();
+    }
   }
 
   completeTodo = (id) => {
@@ -81,15 +86,34 @@ export default class App extends React.Component {
     const { input, todos } = this.state;
 
     return <div>
-      <input value={input} type="text" placeholder="Feed the cat" onChange={this.inputChange} autoFocus />
-      <button type="button" onClick={this.addItem}>Make</button>
-      <button type="button" onClick={this.completeAll}>I've Definitely Done All Of This</button>
-      <button type="button" onClick={this.deleteAll}>$*!# this, I'm Out</button>
-      {
-        todos.map(todo => {
-          return <TodoItem todo={todo} completeTodo={this.completeTodo} deleteTodo={this.deleteTodo} />
-        })
-      }
+      <h2 className="page-title">the grand co-operative todo list.</h2>
+      <div className="todo-options">
+        <div className="top-container">
+          <div className="input-container">
+            <span onClick={this.addItem} className="add-todo fa fa-plus fa-2x"/>
+            <input
+              className="add-todo-input"
+              value={input}
+              type="text"
+              placeholder="We need to..."
+              onChange={this.inputChange}
+              onKeyDown={this.handleKeyPress}
+              ref={inputRef => inputRef && inputRef.focus()}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="todo-item-container">
+        {
+          todos.map(todo => {
+            return <TodoItem todo={todo} completeTodo={this.completeTodo} deleteTodo={this.deleteTodo} />
+          })
+        }
+      </div>
+      <div className="button-container">
+        <div className="big-button" onClick={this.completeAll}><p>We've actually done all of these!</p></div>
+        <div className="big-button" onClick={this.deleteAll}><p>$*!# this, delete 'em all</p></div>
+      </div>
     </div>;
   }
 }

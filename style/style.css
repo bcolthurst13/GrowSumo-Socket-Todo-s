@@ -1,9 +1,179 @@
 html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #5cab93;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, ul, li {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  margin: 0;
+}
+
+.page-title {
+  color: #e6e6e6;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.todo-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-container {
+  width: 800px;
+  background-color: #515975;
+  padding: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.add-todo {
+  margin-right: 20px;
+  color: #ababab;
+  transition: color 0.5s ease-out;
+}
+
+.add-todo:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.todo-line-item {
+  display: flex;
+  align-items: center;
+  width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  animation: fadeIn 0.75s ease-out;
+  opacity: 1;
+}
+
+.todo-line-item:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+
+.todo-line-item-title {
+  color: #a9a9a9;
+  font-size: 28px;
+  flex-grow: 1;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.5s ease;
+}
+
+.complete-todo {
+  margin-right: 20px;
+  color: #a9a9a9;
+  transition: color 0.5s ease;
+}
+
+.complete-todo:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.delete-todo {
+  color: #a9a9a9;
+  transition: color 0.5s ease;
+}
+
+.delete-todo:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.strike-through {
+  position: absolute;
+  border-bottom: 3px solid #ababab;
+  animation: strike 0.5s ease-in-out;
+  width: 600px;
+}
+
+.todo-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-todo-input {
+  border: 0;
+  font-size: 28px;
+  height: 100%;
+  background: transparent;
+  box-sizing: border-box;
+  width: 100%;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.add-todo-input:focus {
+  outline: none;
+  background: rgba(0,0,0,0.05)
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.big-button {
+  width: 400px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #5cab93;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 20px;
+  transition: all 0.5s ease-out;
+}
+
+.big-button:hover {
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: #5cab93;
+}
+
+/* Adjusting placeholder color is weird */
+::-webkit-input-placeholder {
+    color:    rgba(255,255,255,0.3);
+}
+:-moz-placeholder {
+    color:    rgba(255,255,255,0.3);
+}
+::-moz-placeholder {
+    color:    rgba(255,255,255,0.3);
+}
+:-ms-input-placeholder {
+    color:    rgba(255,255,255,0.3);
+}
+
+/* A simple animation for checking off an item on the todo list */
+@keyframes strike {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 600px;
+  }
+}
+
+/* A simple animation for fading in a line item */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
