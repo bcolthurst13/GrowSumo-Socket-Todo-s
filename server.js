@@ -2,6 +2,9 @@ const server = require('socket.io')();
 const firstTodos = require('./data');
 const Todo = require('./todo');
 
+// A flag to make sure we don't reload data when the client is refreshed so long
+// as the server is running.
+let isTheServerRunning = false;
 let DB = [];
 
 server.on('connection', (client) => {
@@ -9,12 +12,15 @@ server.on('connection', (client) => {
     // Parse all default Todo's from db
     console.log("Someone connected!!");
 
-    // We only want our initial data if we have no data to work with.
-    if(DB.length === 0){
+    // We only want our initial data if the server has just been restarted
+    if(!isTheServerRunning){
       DB = firstTodos.map((t) => {
           // Form new Todo objects
           return new Todo(t.title);
       });
+
+      // The server should be running now...
+      isTheServerRunning = true;
     }
 
     // Sends a message to the client to reload all todos
@@ -71,7 +77,16 @@ server.on('connection', (client) => {
       })
 
       reloadTodos();
-    })
+    });
+
+    // Accepts when a client completes all remaining todo's
+    client.on('deleteAll', () => {
+
+      // Set the DB to an empty array.
+      DB = [];
+
+      reloadTodos();
+    });
 
     // Send the DB downstream on connect
     reloadTodos();

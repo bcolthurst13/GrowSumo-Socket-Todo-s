@@ -71,6 +71,12 @@ export default class App extends React.Component {
     server.emit('completeAll');
   }
 
+  deleteAll = () => {
+    const { server } = this.props;
+
+    server.emit('deleteAll');
+  }
+
   render = () => {
     const { input, todos } = this.state;
 
@@ -78,6 +84,7 @@ export default class App extends React.Component {
       <input value={input} type="text" placeholder="Feed the cat" onChange={this.inputChange} autoFocus />
       <button type="button" onClick={this.addItem}>Make</button>
       <button type="button" onClick={this.completeAll}>I've Definitely Done All Of This</button>
+      <button type="button" onClick={this.deleteAll}>$*!# this, I'm Out</button>
       {
         todos.map(todo => {
           return <TodoItem todo={todo} completeTodo={this.completeTodo} deleteTodo={this.deleteTodo} />
