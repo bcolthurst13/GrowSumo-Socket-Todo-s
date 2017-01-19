@@ -67,6 +67,8 @@ p {
   flex-grow: 1;
   font-weight: 600;
   margin: 0;
+  width: 500px;
+  word-wrap: break-word;
   transition: color 0.5s ease;
 }
 
