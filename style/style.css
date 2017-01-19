@@ -66,9 +66,10 @@ p {
   font-size: 28px;
   flex-grow: 1;
   font-weight: 600;
-  margin: 0;
-  width: 500px;
-  word-wrap: break-word;
+  max-width: 650px;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color 0.5s ease;
 }
 
