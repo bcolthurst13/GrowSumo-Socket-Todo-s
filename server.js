@@ -5,17 +5,20 @@ const server = require('socket.io')();
 const firstTodos = require('./data');
 const Todo = require('./todo');
 
+let DB = [];
+
 server.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
     // Parse all default Todo's from db
     console.log("Someone connected!!");
 
-
-    // FIXME: DB is reloading on client refresh. It should be persistent on new client connections from the last time the server was run...
-    const DB = firstTodos.map((t) => {
-        // Form new Todo objects
-        return new Todo(title=t.title);
-    });
+    // We only want our initial data if we have no data to work with.
+    if(DB.length === 0){
+      DB = firstTodos.map((t) => {
+          // Form new Todo objects
+          return new Todo(t.title);
+      });
+    }
 
     // Sends a message to the client to reload all todos
     const reloadTodos = () => {
