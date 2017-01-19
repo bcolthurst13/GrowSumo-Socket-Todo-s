@@ -49,6 +49,17 @@ server.on('connection', (client) => {
       reloadTodos();
     });
 
+    // Accepts when a client deletes a todo
+    client.on('delete', (id) => {
+      // Get the array of todo objects with the selected id filtered out / removed
+      const updatedDB = DB.filter(todo => { return todo.id !== id });
+
+      // Update our 'DB' 
+      DB = updatedDB;
+
+      reloadTodos();
+    });
+
     // Send the DB downstream on connect
     reloadTodos();
 });

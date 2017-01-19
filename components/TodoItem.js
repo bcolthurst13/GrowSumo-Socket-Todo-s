@@ -6,6 +6,11 @@ export default class TodoItem extends React.Component {
 
     completeTodo(todo.id);
   }
+  handleDeleteTodo = () => {
+    const { todo, deleteTodo } = this.props;
+
+    deleteTodo(todo.id);
+  }
   render = () => {
     const { todo } = this.props;
 
@@ -13,6 +18,7 @@ export default class TodoItem extends React.Component {
       <p>{todo.title}</p>
       <span>{todo.timestamp}</span>
       <button onClick={this.handleCompleteTodo}>Complete</button>
+      <button onClick={this.handleDeleteTodo}>Delete</button>
       {
         todo.completed &&
         <div>Completed!!</div>

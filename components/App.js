@@ -58,6 +58,13 @@ export default class App extends React.Component {
 
     server.emit('update', id);
   }
+
+  deleteTodo = (id) => {
+    const { server } = this.props;
+
+    server.emit('delete', id);
+  }
+
   render = () => {
     const { input, todos } = this.state;
 
@@ -66,7 +73,7 @@ export default class App extends React.Component {
       <button type="button" onClick={this.addItem}>Make</button>
       {
         todos.map(todo => {
-          return <TodoItem todo={todo} completeTodo={this.completeTodo} />
+          return <TodoItem todo={todo} completeTodo={this.completeTodo} deleteTodo={this.deleteTodo} />
         })
       }
     </div>;
