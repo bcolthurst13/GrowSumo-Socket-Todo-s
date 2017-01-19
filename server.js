@@ -8,6 +8,8 @@ const Todo = require('./todo');
 server.on('connection', (client) => {
     // This is going to be our fake 'database' for this application
     // Parse all default Todo's from db
+    console.log("Someone connected!!");
+
 
     // FIXME: DB is reloading on client refresh. It should be persistent on new client connections from the last time the server was run...
     const DB = firstTodos.map((t) => {
