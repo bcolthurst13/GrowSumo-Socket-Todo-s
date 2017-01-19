@@ -54,11 +54,24 @@ server.on('connection', (client) => {
       // Get the array of todo objects with the selected id filtered out / removed
       const updatedDB = DB.filter(todo => { return todo.id !== id });
 
-      // Update our 'DB' 
+      // Update our 'DB'
       DB = updatedDB;
 
       reloadTodos();
     });
+
+    // Accepts when a client completes all remaining todo's
+    client.on('completeAll', () => {
+
+      // Update any item that isn't marked as 'complete', to be completed
+      DB.forEach(todo => {
+        if(todo.completed === false){
+          todo.completed = true
+        }
+      })
+
+      reloadTodos();
+    })
 
     // Send the DB downstream on connect
     reloadTodos();
