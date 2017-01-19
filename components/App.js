@@ -8,10 +8,12 @@ export default class App extends React.Component {
     this.state = {
       input: '',
       todos: [],
+      connection_error: false,
     }
     // On a load event from the server, sync up the todos from the server to
     // the application state.
     props.server.on('load', (todos) => this.handleUpdateTodos(todos));
+    props.server.on('connect_error', () => this.handleServerError());
   }
 
   handleUpdateTodos = (todos) => {
@@ -21,8 +23,18 @@ export default class App extends React.Component {
     } else {
       this.setState({
         todos: todos,
+        connection_error: false,
       });
+      // Set a basic client cache w. localstorage
+      localStorage.setItem('todoCache', JSON.stringify(todos));
     }
+  }
+
+  handleServerError = () => {
+    this.setState({
+      todos: JSON.parse(localStorage.todoCache),
+      connection_error: true,
+    })
   }
 
   // Handle changes to the state of the inut field
@@ -83,10 +95,14 @@ export default class App extends React.Component {
   }
 
   render = () => {
-    const { input, todos } = this.state;
+    const { input, todos , connection_error } = this.state;
 
     return <div>
       <h2 className="page-title">the grand co-operative todo list.</h2>
+      {
+        connection_error &&
+        <p className="connection-error">Uh Oh. You've lost connection to the server. Changes may not be saved.</p>
+      }
       <div className="todo-options">
         <div className="top-container">
           <div className="input-container">

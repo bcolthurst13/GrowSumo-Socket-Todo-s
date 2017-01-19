@@ -31,6 +31,12 @@ p {
   padding: 20px;
 }
 
+.connection-error {
+  text-align: center;
+  margin: 10px;
+  color: white;
+}
+
 .input-container {
   display: flex;
   align-items: center;
